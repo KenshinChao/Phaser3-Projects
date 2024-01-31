@@ -34,10 +34,10 @@ class Play extends Phaser.Scene {
         // green background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0,0);
         //white borders
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0,0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
@@ -62,8 +62,11 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
+        this.thirtysec = false;
         this.gameOver = false;
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        scoreConfig.fixedWidth = 0;
+        //this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.clock, scoreConfig);
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
@@ -71,10 +74,60 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5)
             this.gameOver = true;
         }, null, this)
-
-       
+        this.timeleft = this.clock.getOverallRemainingSeconds()
+        this.timer = this.add.text(500, borderUISize + borderPadding*2,this.timeleft, scoreConfig)
+        this.thirtysectimer = this.time.delayedCall(30000, () => {
+            //console.log("its been 30 secs!")
+            this.thirtysec = true;
+        }, null, this)
+        this.timeConfig = {
+            fontFamily: 'Courier', 
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.fireText = this.add.text(borderUISize*8, borderUISize + borderPadding*2,'FIRE', this.timeConfig).setAlpha(0)
+        
     }
     update() {
+        
+        //console.log("timer",this.clock.getElapsedSeconds());
+        this.displayedTime = this.clock.getOverallRemainingSeconds()
+        //console.log('time left',this.displayedTime)
+        this.timer.destroy();
+        this.timer = this.add.text(borderUISize*15 + borderPadding, borderUISize + borderPadding*2, this.displayedTime, { fontFamily: 'Courier', 
+        fontSize: '28px',
+        backgroundColor: '#F3B141',
+        color: '#843605',
+        align: 'right',
+        padding: {
+            top: 5,
+            bottom: 5,
+        },
+        fixedWidth: 100});
+        
+        //console.log(this.clock.getElapsedSeconds())
+        if (this.p1Rocket.isFiring == true){
+            this.fireText.setAlpha(1)
+            if (this.p1Rocket.y <= borderUISize * 3 + borderPadding + 2){
+            //console.log('u missed')
+            const timeleft = this.clock.getOverallRemainingSeconds()
+            //console.log('time left var',timeleft)
+            this.clock = this.time.delayedCall((timeleft * 1000)-4000, () => {
+                this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
+                this.timeConfig).setOrigin(0.5);
+                this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', this.timeConfig).setOrigin(0.5)
+                this.gameOver = true;
+            }, null, this)
+            this.fireText.setAlpha(0)
+            }
+        }
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)){
             this.scene.restart();
         }
@@ -82,28 +135,71 @@ class Play extends Phaser.Scene {
             this.scene.start("menuScene")
           }
         this.starfield.tilePositionX -=4;
-        if(!this.gameOver) {               
-            this.p1Rocket.update()         // update rocket sprite
+        if(!this.gameOver) {           
+            this.p1Rocket.update()
+            if (this.thirtysec == true){
+                game.settings.spaceshipSpeed = game.settings.spaceshipSpeed + 2 
+                this.thirtysec = false; 
+            } // update rocket sprite
             this.ship01.update()           // update spaceships (x3)
             this.ship02.update()
             this.ship03.update()
             this.smallShip.update()
         } 
-
+        
         if (this.checkCollision(this.p1Rocket, this.ship03)) {
+            const timeleft = this.clock.getOverallRemainingSeconds()
+            //console.log('time left var',timeleft)
+            this.clock = this.time.delayedCall((timeleft * 1000)+5000, () => {
+                this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
+                this.timeConfig).setOrigin(0.5);
+                this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', this.timeConfig).setOrigin(0.5)
+                this.gameOver = true;
+            }, null, this)
+            this.fireText.setAlpha(0)
             this.p1Rocket.reset();
+            //this.timerthing += 1; 
             this.shipExplode(this.ship03);
         }
         if (this.checkCollision(this.p1Rocket, this.ship02)) {
+            const timeleft = this.clock.getOverallRemainingSeconds()
+            console.log('time left var',timeleft)
+            this.clock = this.time.delayedCall((timeleft * 1000)+5000, () => {
+                this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
+                this.timeConfig).setOrigin(0.5);
+                this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', this.timeConfig).setOrigin(0.5)
+                this.gameOver = true;
+            }, null, this)
+            this.fireText.setAlpha(0)
             this.p1Rocket.reset();
+            //this.timerthing += 1; 
             this.shipExplode(this.ship02);
         }
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
+            const timeleft = this.clock.getOverallRemainingSeconds()
+            //console.log('time left var',timeleft)
+            this.clock = this.time.delayedCall((timeleft * 1000)+5000, () => {
+                this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
+                this.timeConfig).setOrigin(0.5);
+                this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', this.timeConfig).setOrigin(0.5)
+                this.gameOver = true;
+            }, null, this)
+            this.fireText.setAlpha(0)
+            //this.timerthing += 1; 
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
         if (this.checkCollision(this.p1Rocket, this.smallShip)) {
+            const timeleft = this.clock.getOverallRemainingSeconds()
+            this.clock = this.time.delayedCall((timeleft * 1000)+10000, () => {
+                this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
+                this.timeConfig).setOrigin(0.5);
+                this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', this.timeConfig).setOrigin(0.5)
+                this.gameOver = true;
+            }, null, this)
+            this.fireText.setAlpha(0)
             this.p1Rocket.reset();
+            //this.timerthing += 4; 
             this.shipExplode(this.smallShip);
         }
     } 
