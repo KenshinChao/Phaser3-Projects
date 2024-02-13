@@ -24,7 +24,6 @@ class MainMenu extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height/2, 'hello!', menuConfig).setOrigin(0.5)
         this.add.text(game.config.width/2, game.config.height/2 + 20, 'press space to start!', menuConfig).setOrigin(0.5)
         console.log('menu Scene: create')
-        this.cursorKeys = this.input.keyboard.createCursorKeys()
     }
 
     update(){

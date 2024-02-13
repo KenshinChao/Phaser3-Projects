@@ -15,6 +15,14 @@ class Load extends Phaser.Scene {
             frameHeight: 32
         })
         console.log('Loaded Spritesheets')
+        this.load.image('boba','./assets/boba.png')
+        this.load.image('+100','./assets/+100.png')
+        this.load.image('clouds','./assets/clouds.png')
+        this.load.image('floor','./assets/floor.png')
+        this.load.image('spike','./assets/spike.png')
+        this.load.image('tutorialguy','./assets/tutorial.png')
+
+        console.log('Loaded Images')
         
     }
 
@@ -31,26 +39,23 @@ class Load extends Phaser.Scene {
                 }
                 )
             })
-            this.scene.loadingCat = this.add.sprite(game.config.width/2, game.config.height/2 - 80, 'loadingCat').setScale(3).play('loading')
-        // hero animations (walking)
-        /*
-        this.anims.create({
-            key: 'walk-down',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 3 }),
-        })*/
-
-        //adding circular attack ex.
-        /*
-        this.anims.create({
-            key: 'circular-attack',
-            frameRate: 24,
-            repeat: 0,
-            frames: this.anims.generateFrameNames('hero', {
-                frames: [16, 16, 16, 17, 18, 24, 25, 26, 21, 22, 30, 29, 28, 18, 19, 19 ,19]
+            this.anims.create({
+                key: 'jump',
+                frameRate: 15,
+                repeat: 0,
+                frames: this.anims.generateFrameNames('loadingCat', {
+                    frames: [0, 1, 2, 3, 4, 5, 4, 3, 3, 3, 3]
+                })
             })
-        })*/
+            this.anims.create({
+                key: 'land',
+                frameRate: 15,
+                repeat: 0,
+                frames: this.anims.generateFrameNames('loadingCat', {
+                    frames: [3, 2, 1, 0]
+                })
+            })
+            this.scene.loadingCat = this.add.sprite(game.config.width/2, game.config.height/2 - 80, 'loadingCat').setScale(3).play('loading')
         // proceed once loading completes
         this.add.text(game.config.width/2, game.config.height/2, 'Done Loading!', {
             
@@ -65,8 +70,9 @@ class Load extends Phaser.Scene {
             },
             fixedWidth: 0
         }).setOrigin(0.5)
-        this.clock = this.time.delayedCall(2000, () => {this.scene.start('menuScene')})
+        //turn back on after done
+        //this.clock = this.time.delayedCall(2000, () => {this.scene.start('menuScene')})
         
-        //this.scene.start('menuScene')
+        this.scene.start('menuScene')
     }
 }

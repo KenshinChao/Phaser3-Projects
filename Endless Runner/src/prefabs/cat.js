@@ -1,1 +1,15 @@
 //this is where you create the cat
+class Cat extends Phaser.Physics.Arcade.Sprite{
+    constructor(scene, x, y, texture, frame) {
+        super(scene, x, y, texture, frame)
+        scene.add.existing(this)
+        scene.physics.add.existing(this)
+        this.body.setCollideWorldBounds(true)
+        this.isJumping = false
+        this.body.setSize(this.width / 2 * 1.3, this.height / 2)
+        let moveDirection = new Phaser.Math.Vector2(0, 0)
+        moveDirection.normalize()
+        //test
+    }
+
+}
