@@ -42,23 +42,33 @@ create() {
         cat.anims.play('land')
         }
     })
-    this.spikes = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'spike').setScale(.5)
+
+    //this.spikes = this.physics.add.sprite(game.config.width/2, game.config.height/2+94, 'spike').setScale(.5)
+    this.spike = new Spike(this, game.config.width, game.config.height/2 + 92, 'spike').setScale(.5)
     this.clouds.setVelocityX(-2)
+    this.start = false
+    this.physics.add.collider(this.cat, this.spike, () => {
+        this.scene.restart()
+    })
     
 }
 
 update() {
-    
+    if (this.start == true){
+        this.spike.update()
+    }
+
     if (this.cursorKeys.up.isDown && this.cat.isJumping == false){
         this.cat.setVelocityY(-150)
         this.cat.isJumping = true
         this.cat.anims.play('jump')
-        console.log('weee!')
-}
+        this.start = true
+        //console.log('weee!')
+    }
     if (this.cursorKeys.down.isDown && this.cat.isJumping == true){
         this.cat.setVelocityY(100)
-        console.log('weee!')
-}
+        //console.log('weee!')
+    }
     
 }
 }

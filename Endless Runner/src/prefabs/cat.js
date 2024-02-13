@@ -7,8 +7,6 @@ class Cat extends Phaser.Physics.Arcade.Sprite{
         this.body.setCollideWorldBounds(true)
         this.isJumping = false
         this.body.setSize(this.width / 2 * 1.3, this.height / 2)
-        let moveDirection = new Phaser.Math.Vector2(0, 0)
-        moveDirection.normalize()
         //test
     }
 
