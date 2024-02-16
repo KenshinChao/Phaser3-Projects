@@ -18,9 +18,10 @@ class Load extends Phaser.Scene {
         this.load.image('boba','./assets/boba.png')
         this.load.image('+100','./assets/+100.png')
         this.load.image('clouds','./assets/clouds.png')
+        this.load.image('arrow','./assets/arrow.png')
         this.load.image('floor','./assets/floor.png')
         this.load.image('spike','./assets/spike.png')
-        this.load.image('tutorialguy','./assets/tutorial.png')
+        this.load.image('tutorialguy','./assets/tutorial guy.png')
 
         console.log('Loaded Images')
         

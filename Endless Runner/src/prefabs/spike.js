@@ -1,23 +1,36 @@
 //spike
 class Spike extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, x, y, texture, frame) {
-        super(scene, x, y, texture, frame)
-        scene.add.existing(this)
-        scene.physics.add.existing(this)
+    constructor(scene, x, y, texture, roundSpeed) {
+        super(scene, x, y, texture)
+        this.parentScene = scene;   
+        this.parentScene.add.existing(this)
+        this.parentScene.physics.add.existing(this)
         this.body.setCollideWorldBounds(false)
-        this.roundSpeed = 1
-        this.outOfRange = false
+        this.setVelocityX(roundSpeed)
+        //this.setImmovable(); 
+        this.tint = Math.random() * 0xFFFFFF
+        this.setImmovable()
+        //console.log("speed of spike",roundSpeed)
+        this.newSpike = true
+
+        
+        
     }
 
     update() {
-        this.x -= this.roundSpeed
+        if(this.x < 200) {
+    
 
-        if (this.x <= 0 - this.width){
-            this.outOfRange = true
+            // (recursively) call parent scene method from this context
+            if (this.newSpike == true){
+            this.parentScene.addSpike(this.parentScene, this.parentScene.game.config.width + Phaser.Math.Between(0, 30), this.parentScene.game.config.height/2+94, 'spike', -(this.roundSpeed))
+            this.newSpike = false
+            }
         }
-        if (this.outOfRange == true){
-            this.x = game.config.width + Math.random(0,200)
-            this.outOfRange = false
+        // destroy paddle if it reaches the left edge of the screen
+        if(this.x < -this.width) {
+            this.destroy();
+            //console.log('destroyed!')
+        }
         }
     }
-}
