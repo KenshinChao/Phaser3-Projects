@@ -20,9 +20,14 @@ class Load extends Phaser.Scene {
         this.load.image('clouds','./assets/clouds.png')
         this.load.image('arrow','./assets/arrow.png')
         this.load.image('floor','./assets/floor.png')
+        this.load.image('bobarun','./assets/boba run icon.png')
+        this.load.image('bubble','./assets/dialogue bubble.png')
         this.load.image('spike','./assets/spike.png')
         this.load.image('tutorialguy','./assets/tutorial guy.png')
-
+        this.load.audio('pickup', './assets/sounds/pick up sound.mp3');
+        this.load.audio('confirm', './assets/sounds/confirmed.wav');
+        this.load.audio('jump', './assets/sounds/8-Bit Game 7 by Floraphonic on pixabay.mp3');
+        this.load.audio('song', './assets/sounds/song by motion array.wav');
         console.log('Loaded Images')
         
     }

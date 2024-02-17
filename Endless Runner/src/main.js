@@ -1,23 +1,7 @@
 // ENDLESS RUNNER
 // Name: Kenshin Chao
 
-/*
-Use multiple Scene classes (dictated by your game's style) (1) DONE
-Properly transition between Scenes and allow the player to restart w/out having to reload the page (1) KINDA
-Include in-game instructions using text or other means (e.g., tooltips, tutorial, diagram, etc.) (1)
-Have some form of player input/control appropriate to your game design (1) DONE
-Include one or more animated characters that use a texture atlas/sprite sheet* (1) DONE
-Simulate scrolling with a tileSprite (or equivalent means) (1) KINDA
-Implement proper collision detection (via Arcade Physics or a custom routine) (1) DONE
-Have looping background music* (1)
-Use a minimum of four sound effects for key mechanics, UI, and/or significant events appropriate to your game design (1)
-Use randomness to generate escalating challenge, e.g. terrain, pickups, etc. (1) 
-Include some metric of accomplishment that a player can improve over time, e.g., score, survival time, etc. (1)
-Be theoretically endless (1) 
-Be playable for at least 15 seconds for a new player of low to moderate skill (1)
-Run without significant crashes or errors (1)
-Include in-game credits for all roles, assets, music, etc. (1)
-*/
+
 
 'use strict'
 
@@ -31,10 +15,10 @@ const config = {
     physics: {
         default: "arcade",
         arcade: {
-            debug: true
+            debug: false
         }
     },
-    scene: [ Load, MainMenu, Play ]
+    scene: [ Load, MainMenu, Credits, Play ]
 }
 
 const game = new Phaser.Game(config)
