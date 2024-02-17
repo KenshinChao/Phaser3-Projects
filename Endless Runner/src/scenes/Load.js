@@ -4,17 +4,17 @@ class Load extends Phaser.Scene {
     }
 
     init() {
-        console.log('Load: init')
+        //console.log('Load: init')
     }
 
     preload() {
         // load the visual goodz
-        console.log('Load: preload')
+        //console.log('Load: preload')
         this.load.spritesheet('loadingCat','./assets/spritesheets/loading2.png',{ 
             frameWidth: 32, 
             frameHeight: 32
         })
-        console.log('Loaded Spritesheets')
+        //console.log('Loaded Spritesheets')
         this.load.image('boba','./assets/boba.png')
         this.load.image('+100','./assets/+100.png')
         this.load.image('clouds','./assets/clouds.png')
@@ -28,13 +28,13 @@ class Load extends Phaser.Scene {
         this.load.audio('confirm', './assets/sounds/confirmed.wav');
         this.load.audio('jump', './assets/sounds/8-Bit Game 7 by Floraphonic on pixabay.mp3');
         this.load.audio('song', './assets/sounds/song by motion array.wav');
-        console.log('Loaded Images')
+        //console.log('Loaded Images')
         
     }
 
     create() {
 
-            console.log('Load Scene: create')
+            //console.log('Load Scene: create')
             this.anims.create({
                 key: 'loading',
                 frameRate: 15,
