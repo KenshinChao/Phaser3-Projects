@@ -218,6 +218,7 @@ update() {
     }
     if (this.gameover == true && this.cursorKeys.left.isDown){
         this.scene.start('menuScene')
+        this.bgm.stop()
     }
 }
 
