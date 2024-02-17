@@ -1,6 +1,14 @@
-// ENDLESS RUNNER
+// Boba Run
 // Name: Kenshin Chao
+// Hours: 30
+/*
+Something cool this game does is that every time you jump, the game gets faster and harder as u progress. As in the spikes get faster and the boba somewhat obstructs your chance to 
+live by blocking you for a nano second
+I'm proud of the way I made the art. I'm not good at drawing, especially in pixel art. However, I love the look of the cat 
+and how smooth the animation is by utilizing the frame names I saw in class.
 
+
+*/
 
 
 'use strict'
