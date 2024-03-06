@@ -35,14 +35,14 @@ class Load extends Phaser.Scene {
     create() {
 
             //console.log('Load Scene: create')
-            this.anims.create({
-                key: 'loading',
-                frameRate: 15,
-                repeat: -1,
-                frames: this.anims.generateFrameNumbers('loadingCat', {
-                    start: 0,
-                    end: 4  
-                }
+                    this.anims.create({
+                        key: 'loading',
+                        frameRate: 15,
+                        repeat: -1,
+                        frames: this.anims.generateFrameNumbers('loadingCat', {
+                            start: 0,
+                            end: 4  
+                        }
                 )
             })
             this.anims.create({

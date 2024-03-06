@@ -43,7 +43,30 @@ class Load extends Phaser.Scene {
     this.playerOneMenu.play('runningplayerone')
     this.playerTwoMenu = this.add.sprite(game.config.width-70, game.config.height/2, 'playertwo' , 0).setScale(6)
     this.playerTwoMenu.play('runningplayertwoload')
+    this.title = this.add.bitmapText(game.config.width/150, game.config.height/6,'upheaval_font','COMPETITIVE GAME').setScale(.7)
+    this.startText = this.add.bitmapText(game.config.width/2-70, game.config.height/2,'upheaval_font','PRESS SPACE TO START').setScale(.2)
+    this.playerOneWText = this.add.bitmapText(game.config.width/2-180, game.config.height/2+80,'upheaval_font','W').setScale(.4)
+    this.playerOneAText = this.add.bitmapText(game.config.width/2-200, game.config.height/2+100,'upheaval_font','A').setScale(.4)
+    this.playerOneSText = this.add.bitmapText(game.config.width/2-180, game.config.height/2+100,'upheaval_font','S').setScale(.4)
+    this.playerOneDText = this.add.bitmapText(game.config.width/2-160, game.config.height/2+100,'upheaval_font','D').setScale(.4)
+    this.playerOneShoot = this.add.bitmapText(game.config.width/2-220, game.config.height/2+125,'upheaval_font',"TO SHOOT : C").setScale(.2)
 
-    this.startText = this.add.bitmapText(game.config.width/2, game.config.height/2,'upheaval_font','PRESS SPACE TO START')
+
+    this.playerTwoIText = this.add.bitmapText(game.config.width/2+180, game.config.height/2+80,'upheaval_font','I').setScale(.4)
+    this.playerTwoJText = this.add.bitmapText(game.config.width/2+160, game.config.height/2+100,'upheaval_font','J').setScale(.4)
+    this.playerTwoKText = this.add.bitmapText(game.config.width/2+180, game.config.height/2+100,'upheaval_font','K').setScale(.4)
+    this.playerTwoLText = this.add.bitmapText(game.config.width/2+200, game.config.height/2+100,'upheaval_font','L').setScale(.4)
+    this.playerTwoShoot = this.add.bitmapText(game.config.width/2+120, game.config.height/2+125,'upheaval_font',"TO SHOOT : SHIFT").setScale(.2)
+
+    this.cursors = this.input.keyboard.createCursorKeys()
+}
+
+update() {
+    // wait for player input
+    if(Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+        this.scene.start("levelOneScene")
     }
+}
+
+
 }

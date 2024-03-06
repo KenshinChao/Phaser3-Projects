@@ -7,6 +7,7 @@
 const config = {
     parent: 'phaser-game',  // for info text
     //type: Phaser.WEBGL,     // for tinting
+    backgroundColor: 'f0eaff',
     width: 500,
     height: 400,
     pixelArt: true,
@@ -17,7 +18,7 @@ const config = {
             debug: false
         }
     },
-    scene: [ Load ]
+    scene: [ Load, LevelOne ]
 }
 
 const game = new Phaser.Game(config)
