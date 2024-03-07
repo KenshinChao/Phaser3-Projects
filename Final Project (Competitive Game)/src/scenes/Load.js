@@ -18,8 +18,9 @@ class Load extends Phaser.Scene {
         frameHeight: 25
     }) 
     this.load.bitmapFont('upheaval_font','./assets/font/upheaval.png','./assets/font/upheaval.xml')
-    }
-
+    this.load.image('floor','./assets/floor.png')    
+    this.load.image('platform','./assets/platform.png')
+}
     create() {
         this.anims.create({
             key: 'runningplayerone',
