@@ -1,6 +1,6 @@
 // Competitive Game (Final)
 // Name: Kenshin Chao
-// Hours: 
+// Hours: 10
 
 'use strict'
 
