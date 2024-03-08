@@ -7,6 +7,8 @@ class PlayerTwo extends Phaser.Physics.Arcade.Sprite {
         this.isJumping = false
         this.isMoving = false
         this.canGoDown = false
+        this.isShooting = false
+        this.Died = false
     }
 
     create() {
@@ -74,7 +76,6 @@ class PlayerTwo extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(0)
             this.setFrame(0)
         }
-
    
        
         

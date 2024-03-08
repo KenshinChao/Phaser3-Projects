@@ -15,12 +15,12 @@ const config = {
     physics: {
         default: "arcade",
         arcade: {
-            debug: true
+            debug: false
         }
     },
     scene: [ Load, LevelOne ]
 }
 
-let keyA, keyS, keyD, keyW, keyI, keyK, keyJ, keyL 
+let keyA, keyS, keyD, keyW, keyI, keyK, keyJ, keyL, keyC, keySHIFT, keyRESTART
 
 const game = new Phaser.Game(config)

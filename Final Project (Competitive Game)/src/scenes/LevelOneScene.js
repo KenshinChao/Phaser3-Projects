@@ -23,7 +23,7 @@ class LevelOne extends Phaser.Scene {
         
         this.floorGroup = this.add.group([this.floor, this.floor1, this.floor4])
         
-keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -31,6 +31,9 @@ keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyK = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
         keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
         keyL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
+        keySHIFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+        keyRESTART = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.playerOne = new Player(this,game.config.width/19, game.config.height-80,'playerone',0).setScale(2).setFlip(true)
         this.playerTwo = new PlayerTwo(this,game.config.width+20, game.config.height/2,'playertwo',0).setScale(2)
         this.playerOne.setGravityY(1000).setCollideWorldBounds(true)
@@ -124,6 +127,72 @@ keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
                     })
                 }
             }
+            if (Phaser.Input.Keyboard.JustDown(keySHIFT) && this.playerTwo.isShooting == false) {
+                console.log("Fire")
+                    this.playerTwo.isShooting = true
+                    this.playerTwoBullet = this.physics.add.sprite(this.playerTwo.x,this.playerTwo.y,'orb')
+                    if (this.playerTwo.direction == 'right') {
+                    this.playerTwoBullet.setVelocityX(400)
+                    }
+                    else {
+                        this.playerTwoBullet.setVelocityX(-400)
+                    }
+            }
+            if (this.playerTwoBullet) {
+                if (this.playerTwoBullet.x > game.config.width || this.playerTwoBullet.x < game.config.width/999){
+                    this.playerTwoBullet.destroy()
+                    this.playerTwo.isShooting = false
+                }
+                this.physics.add.collider(this.playerTwoBullet, this.playerOne, ()=> {
+                    console.log("HIT")
+                    this.add.bitmapText(game.config.width/2-180,game.config.height/2-80,'upheaval_font','GAME OVER')
+                    this.add.bitmapText(game.config.width/2-180,game.config.height/2,'upheaval_font','R to restart').setScale(.8)
+                    this.playerOne.Died = true
+                })
+                
+            }
+            if (Phaser.Input.Keyboard.JustDown(keyC) && this.playerOne.isShooting == false) {
+                console.log("Fire")
+                    this.playerOne.isShooting = true
+                    this.playerOneBullet = this.physics.add.sprite(this.playerOne.x,this.playerOne.y,'orb')
+                    if (this.playerOne.direction == 'right') {
+                    this.playerOneBullet.setVelocityX(400)
+                    }
+                    else {
+                        this.playerOneBullet.setVelocityX(-400)
+                    }
+            }
+            if (this.playerOneBullet) {
+                this.physics.add.collider(this.playerOneBullet, this.playerTwo, ()=> {
+                    console.log("HIT")
+                    this.add.bitmapText(game.config.width/2-180,game.config.height/2-80,'upheaval_font','GAME OVER')
+                    this.add.bitmapText(game.config.width/2-180,game.config.height/2,'upheaval_font','R to restart').setScale(.8)
+                    this.playerTwo.Died = true
+                })
+                if (this.playerOneBullet.x > game.config.width || this.playerOneBullet.x < game.config.width/999){
+                    this.playerOneBullet.destroy()
+                    this.playerOne.isShooting = false
+                }
+            }
+            if (this.playerOne.Died == true){
+                this.add.sprite(this.playerOne.x,this.playerOne.y, 'rip').setScale(5)
+                this.gameover = true
+            }
+            if (this.playerTwo.Died == true){
+                this.add.sprite(this.playerTwo.x,this.playerTwo.y, 'rip').setScale(5)
+                this.gameover = true
+            }
+        }
+        else{
+            if (Phaser.Input.Keyboard.JustDown(keyRESTART)){
+                this.scene.restart()
+            }
+            this.playerOne.anims.stop()
+            this.playerTwo.anims.stop()
+            this.playerOne.setVelocity(0)
+            this.playerTwo.setVelocity(0)
+            
+            this.movingfloor.setVelocity(0)
         }
         
     }

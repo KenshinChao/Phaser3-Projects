@@ -3,10 +3,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this)
         scene.physics.add.existing(this)
-        this.direction = 'left' 
+        this.direction = 'right' 
         this.isJumping = false
         this.isMoving = false
         this.canGoDown = false
+        this.isShooting = false
+        this.Died = false
     }
 
     create() {
@@ -73,7 +75,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(0)
             this.setFrame(0)
         }
-
    
        
         
