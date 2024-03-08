@@ -31,8 +31,8 @@ keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyK = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
         keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
         keyL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
-        this.playerOne = new Player(this,game.config.width/2, game.config.height/2,'playerone',0).setScale(2)
-        this.playerTwo = new PlayerTwo(this,game.config.width/2, game.config.height/2,'playertwo',0).setScale(2)
+        this.playerOne = new Player(this,game.config.width/19, game.config.height-80,'playerone',0).setScale(2).setFlip(true)
+        this.playerTwo = new PlayerTwo(this,game.config.width+20, game.config.height/2,'playertwo',0).setScale(2)
         this.playerOne.setGravityY(1000).setCollideWorldBounds(true)
         this.playerTwo.setGravityY(1000).setCollideWorldBounds(true)
         

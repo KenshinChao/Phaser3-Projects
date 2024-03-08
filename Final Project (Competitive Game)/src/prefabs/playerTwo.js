@@ -61,7 +61,7 @@ class PlayerTwo extends Phaser.Physics.Arcade.Sprite {
             this.body.setVelocityX(-200)
             
         }
-        else if (keyI.isDown){
+        else if (keyI.isDown && this.isJumping == false){
             this.isMoving = true
             if (this.isJumping == false){
             this.isJumping = true
