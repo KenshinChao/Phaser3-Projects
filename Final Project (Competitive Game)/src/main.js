@@ -18,9 +18,9 @@ const config = {
             debug: false
         }
     },
-    scene: [ Load, LevelOne ]
+    scene: [ Load, Credits, LevelOne ]
 }
 
-let keyA, keyS, keyD, keyW, keyI, keyK, keyJ, keyL, keyC, keySHIFT, keyRESTART
+let keyA, keyS, keyD, keyW, keyI, keyK, keyJ, keyL, keyC, keySHIFT, keyRESTART, keyB
 
 const game = new Phaser.Game(config)

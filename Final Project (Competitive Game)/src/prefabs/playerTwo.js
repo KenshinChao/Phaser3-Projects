@@ -24,7 +24,7 @@ class PlayerTwo extends Phaser.Physics.Arcade.Sprite {
             this.setFrame(6)
             this.body.setVelocityY(-500)
             this.body.setVelocityX(-200)
-            }
+            this.scene.sound.play('jumpsound')            }
         }
         else if (keyI.isDown && keyL.isDown){
             this.isMoving = true
@@ -33,6 +33,7 @@ class PlayerTwo extends Phaser.Physics.Arcade.Sprite {
             this.setFrame(6)
             this.body.setVelocityY(-500)
             this.body.setVelocityX(200)
+            this.scene.sound.play('jumpsound')
             }
         }
         else if (keyL.isDown){
@@ -69,6 +70,7 @@ class PlayerTwo extends Phaser.Physics.Arcade.Sprite {
             this.isJumping = true
             this.setFrame(6)
             this.body.setVelocityY(-500)
+            this.scene.sound.play('jumpsound')
             }
         }
         else {
