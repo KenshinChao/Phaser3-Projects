@@ -11,14 +11,16 @@ const config = {
     width: 500,
     height: 400,
     pixelArt: true,
-    zoom: 2,
+    zoom: 1,
     physics: {
         default: "arcade",
         arcade: {
-            debug: false
+            debug: true
         }
     },
     scene: [ Load, LevelOne ]
 }
+
+let keyA, keyS, keyD, keyW, keyI, keyK, keyJ, keyL 
 
 const game = new Phaser.Game(config)

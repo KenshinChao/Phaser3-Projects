@@ -27,9 +27,24 @@ class Load extends Phaser.Scene {
             frameRate: 7,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('playerone', {
-                start: 0,
+                start: 1,
                 end: 6  
             })})
+
+        this.anims.create({
+                key: 'runningplayertwo',
+                frameRate: 7,
+                repeat: -1,
+                frames: this.anims.generateFrameNumbers('playertwo', {
+                    start: 1,
+                    end: 6  
+                })})
+    
+    
+                
+
+            
+        
 
             this.anims.create({
                 key: 'runningplayertwoload',

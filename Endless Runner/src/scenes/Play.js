@@ -88,7 +88,7 @@ create() {
     this.cat.body.setOffset(6,16)
     this.cat.setPosition(game.config.width/4,game.config.height/2)
     this.floor = this.physics.add.sprite(0, 0,'floor')
-
+    
     this.roundSpeed = 50
     this.cat.setGravityY(200)
     this.floor.body.setSize(2000,99)
