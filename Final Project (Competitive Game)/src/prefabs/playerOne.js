@@ -9,6 +9,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.canGoDown = false
         this.isShooting = false
         this.Died = false
+        this.jumpSound = this.scene.sound.add('jumpsound')
     }
 
     create() {
@@ -67,12 +68,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         else if (keyW.isDown && this.isJumping == false){
             this.isMoving = true
             if (this.isJumping == false){
+                //console.log("went in")
+                //console.log(this.jumpSound.isPlaying)
             this.isJumping = true
             this.setFrame(6)
             this.body.setVelocityY(-500)
-            this.scene.sound.play('jumpsound')
+            if (!this.jumpSound.isPlaying) { // Check if sound is not already playing
+                this.jumpSound.play(); // Update flag
             }
         }
+    }   
         else {
             this.isMoving = false
             this.setVelocityX(0)

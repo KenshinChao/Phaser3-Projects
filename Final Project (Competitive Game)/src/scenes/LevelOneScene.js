@@ -141,10 +141,10 @@ class LevelOne extends Phaser.Scene {
                     this.playerTwo.isShooting = true
                     this.playerTwoBullet = this.physics.add.sprite(this.playerTwo.x,this.playerTwo.y,'orb').setScale(.7)
                     if (this.playerTwo.direction == 'right') {
-                    this.playerTwoBullet.setVelocityX(400)
+                    this.playerTwoBullet.setVelocityX(800)
                     }
                     else {
-                        this.playerTwoBullet.setVelocityX(-400)
+                        this.playerTwoBullet.setVelocityX(-800)
                     }
             }
             if (this.playerTwoBullet) {
@@ -164,10 +164,10 @@ class LevelOne extends Phaser.Scene {
                     this.playerOne.isShooting = true
                     this.playerOneBullet = this.physics.add.sprite(this.playerOne.x,this.playerOne.y,'orb').setScale(.7)
                     if (this.playerOne.direction == 'right') {
-                    this.playerOneBullet.setVelocityX(400)
+                    this.playerOneBullet.setVelocityX(800)
                     }
                     else {
-                        this.playerOneBullet.setVelocityX(-400)
+                        this.playerOneBullet.setVelocityX(-800)
                     }
             }
             if (this.playerOneBullet) {
