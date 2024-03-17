@@ -37,7 +37,8 @@ class LevelOne extends Phaser.Scene {
         this.playerTwo = new PlayerTwo(this,game.config.width+20, game.config.height/2,'playertwo',0).setScale(2)
         this.playerOne.setGravityY(1000).setCollideWorldBounds(true)
         this.playerTwo.setGravityY(1000).setCollideWorldBounds(true)
-        
+        this.playerOne.setBodySize(14,25)
+        this.playerTwo.setBodySize(14,25)
         this.gameover = false
     
         this.physics.add.collider(this.playerOne,this.floorGroup, ()=> {
@@ -106,13 +107,22 @@ class LevelOne extends Phaser.Scene {
         this.physics.add.collider(this.playerTwo,this.lava, ()=> {
             this.playerTwo.Died = true
         } )
+
+        this.timer = this.time.delayedCall(30000,()=> {
+            this.time.delayedCall(100, ()=> {
+               this.gameover = true      
+            })
+        },this)
+        this.timerText = this.add.bitmapText(game.config.width/2-60, game.config.height/2-200,'upheaval_font',this.timer.getRemainingSeconds()).setScale(.8)
     }
 
     update() {
         if (this.gameover == false) {
+            this.timerText.setText(this.timer.getRemainingSeconds().toFixed(2))
             this.movingfloor.setVelocityX(this.movingFloorVelocity)
             this.playerOne.update()
             this.playerTwo.update()
+
             
           
 
@@ -125,6 +135,9 @@ class LevelOne extends Phaser.Scene {
                         this.playerOne.canGoDown = false
                     })
                 }
+                else if(this.playerOne.isJumping == true){
+                    this.playerOne.setVelocityY(400)
+            }
             }
             if (keyK.isDown){
                 if (this.playerTwo.canGoDown == true && this.playerTwo.isJumping == false){
@@ -135,7 +148,10 @@ class LevelOne extends Phaser.Scene {
                         this.playerTwo.canGoDown = false
                     })
                 }
+                else if(this.playerTwo.isJumping == true){
+                    this.playerTwo.setVelocityY(400)
             }
+        }
             if (Phaser.Input.Keyboard.JustDown(keySHIFT) && this.playerTwo.isShooting == false) {
                 console.log("Fire")
                     this.playerTwo.isShooting = true
@@ -206,6 +222,26 @@ class LevelOne extends Phaser.Scene {
             this.playerTwo.setVelocity(0)
             
             this.movingfloor.setVelocity(0)
+            if(localStorage.getItem('hiscore') != null) {
+                let storedScore = parseInt(localStorage.getItem('hiscore'));
+                //console.log(`storedScore: ${storedScore}`);
+                // see if current score is higher than stored score
+                if(level > storedScore) {
+                    //console.log(`New high score: ${level}`);
+                    localStorage.setItem('hiscore', level.toString());
+                    highScore = level;
+                    newHighScore = true;
+                } else {
+                    //console.log('No new high score :/');
+                    highScore = parseInt(localStorage.getItem('hiscore'));
+                    newHighScore = false;
+                }
+            } else {
+                //console.log('No high score stored. Creating new.');
+                highScore = level;
+                localStorage.setItem('hiscore', highScore.toString());
+                newHighScore = true;
+            }
         }
         
     }
