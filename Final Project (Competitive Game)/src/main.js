@@ -18,9 +18,15 @@ const config = {
             debug: true
         }
     },
+    scale: {
+        
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     scene: [ Load, Credits, LevelOne ]
 }
 
+let highScore;
+let newHighScore = false;
 let keyA, keyS, keyD, keyW, keyI, keyK, keyJ, keyL, keyC, keySHIFT, keyRESTART, keyB
 
 const game = new Phaser.Game(config)

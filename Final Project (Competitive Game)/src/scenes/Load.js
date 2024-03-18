@@ -22,6 +22,7 @@ class Load extends Phaser.Scene {
     this.load.image('platform','./assets/platform.png')
     this.load.image('orb', './assets/orb.png')
     this.load.image('rip','./assets/rip.png')
+    this.load.image('robot','./assets/robot.png')
     this.load.audio('jumpsound','./assets/sounds/jump sound.mp3')
     this.load.audio('selection','./assets/sounds/selectionsound.mp3')
 }
@@ -110,7 +111,12 @@ class Load extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys()
     this.tut = this.playerTwoIText = this.add.bitmapText(game.config.width/2+65, game.config.height/2+175,'upheaval_font','Arrow Keys to navigate').setScale(.2)
     this.tut = this.playerTwoIText = this.add.bitmapText(game.config.width/2+100, game.config.height/2+185,'upheaval_font','SPACE to select').setScale(.2)
-    
+    // check for local storage browser support
+    if(window.localStorage) {
+        console.log('Local storage supported');
+    } else {
+        console.log('Local storage not supported');
+    }
 }
 
 update() {
