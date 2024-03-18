@@ -25,10 +25,12 @@ class Load extends Phaser.Scene {
     this.load.image('robot','./assets/robot.png')
     this.load.audio('jumpsound','./assets/sounds/jump sound.mp3')
     this.load.audio('selection','./assets/sounds/selectionsound.mp3')
+    this.load.audio('bgm','./assets/sounds/8_Bit_Adventure_-_www.FesliyanStudios.com.mp3')
 }
     create() {
 
-        
+        this.bgm =this.sound.add('bgm', { volume: 0.1, loop: true }) 
+        this.bgm.play()
 
         this.anims.create({
             key: 'runningplayerone',
@@ -165,6 +167,7 @@ update() {
     // wait for player input
     if(Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
         this.scene.start(this.selected)
+        this.bgm.stop()
     }
 }
 

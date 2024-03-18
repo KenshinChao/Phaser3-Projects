@@ -7,6 +7,8 @@ class LevelOne extends Phaser.Scene {
     
 
     create() {
+        this.bgm =this.sound.add('bgm', { volume: 0.1, loop: true }) 
+        this.bgm.play()
         this.leftRobot = new Robot(this,game.config.width/100-70,game.config.height-50,'robot').setScale(2.2).setFlip(true).setImmovable(true)
         this.rightRobot = new Robot(this,game.config.width/2+300,game.config.height/2+30,'robot').setScale(2.2).setImmovable(true)
         this.rightRobot.side = 'right'
@@ -339,9 +341,12 @@ class LevelOne extends Phaser.Scene {
             this.scoreText = this.add.bitmapText(game.config.width/2-70, game.config.height/2-160,'upheaval_font',"Hi-Score: " + highScore).setScale(.3)
         }
         if (Phaser.Input.Keyboard.JustDown(keyRESTART)){
+            this.bgm.stop()
             this.scene.restart()
+     
         }
         if(Phaser.Input.Keyboard.JustDown(keyB)){
+            this.bgm.stop()
             this.scene.start('loadScene')
         }
             
