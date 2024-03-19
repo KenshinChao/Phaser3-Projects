@@ -235,6 +235,12 @@ class LevelOne extends Phaser.Scene {
                     this.playerTwoBullet = null
                         this.playerTwo.isShooting = false
                 })
+                this.physics.add.collider(this.playerTwoBullet,this.rightRobot, ()=> {
+                    this.playerTwoScore += 100
+                    this.playerTwoBullet.destroy()
+                    this.playerTwoBullet = null
+                        this.playerTwo.isShooting = false
+                })
                 this.physics.add.collider(this.playerTwoBullet, this.playerOne, ()=> {
                     //console.log("HIT")
               
@@ -261,6 +267,11 @@ class LevelOne extends Phaser.Scene {
                     this.playerTwo.Died = true
                 })
                 this.physics.add.collider(this.playerOneBullet,this.leftRobot, ()=> {
+                        this.playerOneScore += 100
+                        this.playerOneBullet.destroy()
+                        this.playerOne.isShooting = false
+                    })
+                    this.physics.add.collider(this.playerOneBullet,this.rightRobot, ()=> {
                         this.playerOneScore += 100
                         this.playerOneBullet.destroy()
                         this.playerOne.isShooting = false
